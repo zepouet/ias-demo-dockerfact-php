@@ -38,7 +38,7 @@ jobs:
         with:
           login-server: ${{ env.REGISTRY_APP }}
           username: 1248cda0-dca5-4188-804d-7b268be7e79e
-          password: O0_9IyoHZYHy5CWo53.U5D38VAYQKqNZg_
+          password: SZ0-p-kLDkwzGXwrNw4TNvmJQEq7rwguag
       - name: push
         run: |
           docker push ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat
