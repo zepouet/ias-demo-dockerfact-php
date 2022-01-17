@@ -38,7 +38,7 @@ jobs:
         with:
           login-server: ${{ env.REGISTRY_APP }}.azurecr.io
           username: 1248cda0-dca5-4188-804d-7b268be7e79e
-          password: SZ0-p-kLDkwzGXwrNw4TNvmJQEq7rwguag
+          password: jWl4~fAHKdLBWGMsn.oLsv568qZ-48WKQh
       - name: push
         run: |
           docker push ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat
