@@ -7,6 +7,7 @@ on:
     branches: [ main ]
 
 env:
+  REGISTRY: baseartifacts.azurecr.io
   IMAGE: 'php:8.0-apache-buster-stable'
 
 jobs:
@@ -26,4 +27,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: uat-demo13114
-          images: ${{ env.IMAGE }}
+          images: ${{env.REGISTRY}}/${{ env.IMAGE }}
