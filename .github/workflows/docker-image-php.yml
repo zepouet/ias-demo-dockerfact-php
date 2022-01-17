@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: baseartifacts.azurecr.io
-  IMAGE: 'php:8.0-apache-buster-stable'
+  IMAGE: 'demo13114'
 
 jobs:
   #=====================================================================================================================
@@ -18,7 +18,11 @@ jobs:
     runs-on: 'ubuntu-latest'
     environment: 'dev'
     steps:
-      # Deploy to web app
+      - name: 'Build the image'
+        id: build
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat .
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
         with:
@@ -27,4 +31,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: uat-demo13114
-          images: ${{env.REGISTRY}}/${{ env.IMAGE }}
+          images: ${{env.REGISTRY}}/${{ env.IMAGE }}:uat
