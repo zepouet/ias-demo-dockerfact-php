@@ -37,8 +37,8 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: ${{ env.REGISTRY_APP }}
-          username: 1248cda0-dca5-4188-804d-7b268be7e79e
-          password: CQeK6cGwS~HGa1P6O6ZW1IW89SwZjX8u_Z
+          username: ${{ secrets.ACR_APP_SECRET_ID}}
+          password: ${{ secrets.ACR_APP_SECRET_PWD }}
       - name: push
         run: |
           docker push ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat
