@@ -33,13 +33,13 @@ jobs:
         run: |
           docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat .
       - name: 'azure registry login'
-          uses: azure/docker-login@v1
-          with:
-            login-server: ${{ env.REGISTRY }}
-            username: 1248cda0-dca5-4188-804d-7b268be7e79e
-            password: O0_9IyoHZYHy5CWo53.U5D38VAYQKqNZg_
-          run: |
-            docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY }}
+          username: 1248cda0-dca5-4188-804d-7b268be7e79e
+          password: O0_9IyoHZYHy5CWo53.U5D38VAYQKqNZg_
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
