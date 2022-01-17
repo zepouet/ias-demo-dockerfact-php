@@ -22,12 +22,14 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: ls -la .
+      - run: pwd
       - name: 'Build the image'
         id: build
         run: |
           docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat
-      - run: ls -la .
+
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
