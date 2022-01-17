@@ -7,7 +7,8 @@ on:
     branches: [ main ]
 
 env:
-  REGISTRY: baseartifacts.azurecr.io
+  REGISTRY_BASE: baseartifacts.azurecr.io
+  REGISTRY_APP: regdemo13114.azurecr.io
   IMAGE: 'demo13114'
 
 jobs:
@@ -23,7 +24,7 @@ jobs:
       - name: 'azure registry login'
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ env.REGISTRY }}
+          login-server: ${{ env.REGISTRY_BASE }}
           username: ${{ secrets.ACR_SECRET_ID }}
           password: ${{ secrets.ACR_SECRET_PWD }}
       - run: ls -la .
@@ -35,17 +36,25 @@ jobs:
       - name: 'azure registry login'
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ env.REGISTRY }}
+          login-server: ${{ env.REGISTRY_APP }}
           username: 1248cda0-dca5-4188-804d-7b268be7e79e
           password: O0_9IyoHZYHy5CWo53.U5D38VAYQKqNZg_
       - name: push
         run: |
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat
+          docker push ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+        #run: |
+        #  #!/bin/bash
+        #  mycontainers=$(az acr repository list --name $REGISTRY --output tsv)
+        #  for i in $mycontainers
+        #  do
+        #      echo -n "$REGISTRY.azurecr.io/$i:"
+        #      az acr repository show-tags -n $REGISTRY --repository $i --output tsv|tail -1
+        #  done
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
           app-name: uat-demo13114
-          images: ${{env.REGISTRY}}/${{ env.IMAGE }}:uat
+          images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:uat
