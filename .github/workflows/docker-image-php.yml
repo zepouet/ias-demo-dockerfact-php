@@ -16,7 +16,6 @@ jobs:
   deploy-dev:
     runs-on: 'ubuntu-latest'
     environment: 'dev'
-    needs: build-and-publish
     steps:
       # Deploy to web app
       - name: 'Login via Azure CLI'
