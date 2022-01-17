@@ -20,10 +20,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: 'Login via Azure CLI'
-        uses: azure/login@v1
+      - name: 'azure registry login'
+        uses: azure/docker-login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          login-server: ${{ env.REGISTRY }}
+          username: ${{ secrets.ACR_SECRET_ID }}
+          password: ${{ secrets.ACR_SECRET_PWD }}
       - run: ls -la .
       - run: pwd
       - name: 'Build the image'
@@ -31,7 +33,6 @@ jobs:
         run: |
           docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat .
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat
-
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
