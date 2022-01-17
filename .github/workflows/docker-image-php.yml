@@ -27,6 +27,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: ls -la .
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
