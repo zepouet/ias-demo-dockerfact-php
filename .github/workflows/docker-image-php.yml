@@ -1,0 +1,34 @@
+name: Docker Image CI
+
+  #  name: Build the Docker image
+  #  working-directory: php/8.1/debian
+  #  run: docker build . --file Dockerfile --tag baseartifacts.azurecr.io/php:8.1-latest
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DOTNET_VERSION: '3.1.404'
+
+jobs:
+  #=====================================================================================================================
+  # DEPLOY INTO DEV AUTOMATICALLY
+  #=====================================================================================================================
+  deploy-dev:
+    runs-on: 'ubuntu-latest'
+    environment: 'dev'
+    needs: build-and-publish
+    steps:
+      # Deploy to web app
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Deploy to Azure WebApp'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: uat-demo13114
+          images: php:8.0-apache-buster-stable
