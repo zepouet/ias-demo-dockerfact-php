@@ -41,6 +41,9 @@ jobs:
       - name: push
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE }}:uat
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
