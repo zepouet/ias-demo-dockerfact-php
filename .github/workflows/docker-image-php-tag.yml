@@ -1,0 +1,27 @@
+name: Deploy WebApp
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  REGISTRY_BASE: baseartifacts.azurecr.io
+  REGISTRY_APP: regdemo13114.azurecr.io
+  IMAGE: 'demo13114'
+
+jobs:
+  release-uat:
+    runs-on: 'ubuntu-latest'
+    environment: 'dev'
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: 'azure registry login'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY_BASE }}
+          username: ${{ secrets.ACR_SECRET_ID }}
+          password: ${{ secrets.ACR_SECRET_PWD }}
+      - name: semver
+        run: "echo generate new release for uat"
+
