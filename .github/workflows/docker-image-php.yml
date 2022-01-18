@@ -42,17 +42,10 @@ jobs:
       - name: push
         run: |
           docker push ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat
+          docker tag ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat tag ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:${{ github.sha }}
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-        #run: |
-        #  #!/bin/bash
-        #  mycontainers=$(az acr repository list --name $REGISTRY --output tsv)
-        #  for i in $mycontainers
-        #  do
-        #      echo -n "$REGISTRY.azurecr.io/$i:"
-        #      az acr repository show-tags -n $REGISTRY --repository $i --output tsv|tail -1
-        #  done
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
