@@ -57,5 +57,4 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: uat-demo13114
-          #images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:uat
-          images: nginx
+          images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:uat
