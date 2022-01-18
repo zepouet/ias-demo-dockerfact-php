@@ -42,7 +42,7 @@ jobs:
       - name: push
         run: |
           docker push ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat
-          docker tag ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:uat tag ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:${{ github.sha }}
+          docker tag ${{env.REGISTRY_APP}}/${{env.IMAGE}}:uat ${{ env.REGISTRY_APP }}/${{ env.IMAGE }}:${{ github.sha }}
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
