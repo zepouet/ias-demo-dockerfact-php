@@ -1,4 +1,4 @@
-name: Deploy WebApp
+name: Prepare release UAT
 
 on:
   push:

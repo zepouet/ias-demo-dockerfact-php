@@ -1,4 +1,4 @@
-name: Deploy WebApp
+name: Deploy in DEV
 
 on:
   #The restriction to directly push commits to master solves the problem.
@@ -58,4 +58,4 @@ jobs:
         run: "echo e2e"
       - name: perf
         run: "echo perf"
-
+s
