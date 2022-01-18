@@ -1,8 +1,9 @@
 name: Deploy WebApp
 
 on:
-  push:
-    branches: [ main ]
+  #The restriction to directly push commits to master solves the problem.
+  #push:
+    #branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -53,3 +54,8 @@ jobs:
           app-name: uat-demo13114
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:${{ github.sha }}
+      - name: e2e
+        run: "echo e2e"
+      - name: perf
+        run: "echo perf"
+
