@@ -41,7 +41,7 @@ jobs:
       - name: 'Build the image'
         id: build
         run: |
-          docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
+          docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }}
       - name: 'azure registry login'
         uses: azure/docker-login@v1
         with:
@@ -52,7 +52,7 @@ jobs:
         run: "container structure test"
       - name: push
         run: |
-          docker push ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
+          docker push ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }}
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -60,7 +60,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.APP_NAME }}
-          images: ${{env.REGISTRY_FROM}}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
+          images: ${{env.REGISTRY_FROM}}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }}
       - name: e2e
         run: "echo e2e"
       - name: perf
