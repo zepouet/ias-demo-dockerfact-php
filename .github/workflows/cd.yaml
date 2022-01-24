@@ -50,7 +50,7 @@ jobs:
           username: ${{ secrets.ACR_APP_SECRET_ID}}
           password: ${{ secrets.ACR_APP_SECRET_PWD }}
       - name: container structure test
-        run: "container structure test"
+        run: "echo container structure test"
       - name: push
         run: |
           docker push ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }}
