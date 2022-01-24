@@ -25,43 +25,43 @@ jobs:
           echo "github.run_id = ": ${{ github.run_id }}
         env:
           VERSION: ${{ steps.branch_name.outputs.VERSION }}
-    deploy-uat:
-      runs-on: 'ubuntu-latest'
-      environment: 'dev'
-      steps:
-        - name: checkout
-          uses: actions/checkout@v2
-        - name: 'azure registry login'
-          uses: azure/docker-login@v1
-          with:
-            login-server: ${{ env.REGISTRY_FROM }}
-            username: ${{ secrets.ACR_SECRET_ID }}
-            password: ${{ secrets.ACR_SECRET_PWD }}
-        - name: 'Build the image'
-          id: build
-          run: |
-            docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
-        - name: 'azure registry login'
-          uses: azure/docker-login@v1
-          with:
-            login-server: ${{ env.REGISTRY_FROM }}
-            username: ${{ secrets.ACR_APP_SECRET_ID}}
-            password: ${{ secrets.ACR_APP_SECRET_PWD }}
-        - name: container structure test
-          run: "container structure test"
-        - name: push
-          run: |
-            docker push ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
-        - uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-        - name: 'Deploy to Azure WebApp'
-          uses: azure/webapps-deploy@v2
-          with:
-            app-name: ${{ env.APP_NAME }}
-            images: ${{env.REGISTRY_FROM}}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
-        - name: e2e
-          run: "echo e2e"
-        - name: perf
-          run: "echo perf"
+  deploy-uat:
+    runs-on: 'ubuntu-latest'
+    environment: 'dev'
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: 'azure registry login'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY_FROM }}
+          username: ${{ secrets.ACR_SECRET_ID }}
+          password: ${{ secrets.ACR_SECRET_PWD }}
+      - name: 'Build the image'
+        id: build
+        run: |
+          docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
+      - name: 'azure registry login'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY_FROM }}
+          username: ${{ secrets.ACR_APP_SECRET_ID}}
+          password: ${{ secrets.ACR_APP_SECRET_PWD }}
+      - name: container structure test
+        run: "container structure test"
+      - name: push
+        run: |
+          docker push ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Deploy to Azure WebApp'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.APP_NAME }}
+          images: ${{env.REGISTRY_FROM}}/${{ env.IMAGE }}:${{ env.$VERSION }}-${{ github.run_id }}
+      - name: e2e
+        run: "echo e2e"
+      - name: perf
+        run: "echo perf"
 
