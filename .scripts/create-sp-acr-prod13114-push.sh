@@ -2,7 +2,7 @@
 # This script requires Azure CLI version 2.25.0 or later. Check version with `az --version`.
 
 ACR_NAME=regprod13114
-SERVICE_PRINCIPAL_NAME=acr-sp-push-prod
+SERVICE_PRINCIPAL_NAME=sp-prod13114-acr
 
 # Obtain the full registry ID for subsequent command args
 ACR_REGISTRY_ID=$(az acr show --name $ACR_NAME --query "id" --output tsv)
