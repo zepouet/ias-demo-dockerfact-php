@@ -53,7 +53,9 @@ jobs:
         run: "echo container structure test"
       - name: push
         run: |
-          docker push ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }}
+          docker push ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:$TAG
+        env:
+          TAG: ${{ steps.branch_name.outputs.VERSION }}-${{ github.run_id }}
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
