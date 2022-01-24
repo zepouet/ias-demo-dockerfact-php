@@ -25,11 +25,6 @@ jobs:
           echo "github.run_id = ": ${{ github.run_id }}
         env:
           VERSION: ${{ steps.branch_name.outputs.VERSION }}
-  deploy-uat:
-    needs: ["build-uat"]
-    runs-on: 'ubuntu-latest'
-    environment: 'dev'
-    steps:
       - name: checkout
         uses: actions/checkout@v2
       - name: 'azure registry login'
