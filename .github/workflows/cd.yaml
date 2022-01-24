@@ -18,7 +18,7 @@ jobs:
         id: branch_name
         run: |
           echo ${GITHUB_REF}
-          echo ${GITHUB_REF} | cut -d / -f 4)
+          echo ${GITHUB_REF} | cut -d / -f 4
           echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
           echo ::set-output name=SHORT_ID::${GITHUB_REF#refs/release/}
           echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
@@ -26,14 +26,12 @@ jobs:
           echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: Build base image
         run: |
-          echo GITHUB_REFERENCE
           echo $SHORT_ID
           echo $SOURCE_NAME
           echo $SOURCE_BRANCH
           echo $SOURCE_TAG
           echo $VERSION
         env:
-          GITHUB_REFERENCE: ${{ steps.branch_name.outputs.GITHUB_REFERENCE }}
           SOURCE_NAME: ${{ steps.branch_name.outputs.SOURCE_NAME }}
           SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
           SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
