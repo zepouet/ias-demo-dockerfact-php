@@ -1,6 +1,7 @@
 name: Deploy production
 
 on: [workflow_dispatch]
+    releases: 
 
 env:
   REGISTRY_FROM: regdev13114.azurecr.io
