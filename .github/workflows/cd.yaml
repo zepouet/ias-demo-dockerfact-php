@@ -100,7 +100,6 @@ jobs:
           TAG: ${{ steps.branch_name.outputs.VERSION }}-${{ github.run_id }}
       - name: 'azure registry login Prod'
         uses: azure/docker-login@v1
-        environment: 'prod'
         with:
           login-server: ${{ env.REGISTRY_TO }}
           username: ${{ secrets.PRD_ACR_APP_SECRET_ID }}
