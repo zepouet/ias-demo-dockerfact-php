@@ -8,8 +8,8 @@ on:
     branches: [ main ]
 
 env:
-  REGISTRY_BASE: baseartifacts.azurecr.io
-  REGISTRY_APP: regdemo13114.azurecr.io
+  REGISTRY_BASE: base13114.azurecr.io
+  REGISTRY_APP: regdev13114.azurecr.io
   IMAGE: 'demo13114'
 
 jobs:
