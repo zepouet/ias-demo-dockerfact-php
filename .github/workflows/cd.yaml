@@ -26,6 +26,7 @@ jobs:
         env:
           VERSION: ${{ steps.branch_name.outputs.VERSION }}
   deploy-uat:
+    needs: ["build-uat"]
     runs-on: 'ubuntu-latest'
     environment: 'dev'
     steps:
