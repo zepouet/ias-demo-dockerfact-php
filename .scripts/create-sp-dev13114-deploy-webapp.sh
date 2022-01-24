@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script requires Azure CLI version 2.25.0 or later. Check version with `az --version`.
 
-SERVICE_PRINCIPAL_NAME=sp-webapp-deploy-uat
+SERVICE_PRINCIPAL_NAME=sp-dev13114
 
 RG_NAME=RG_nicolas_20220123
 SUBSCRIPTION_ID=54d87296-b91a-47cd-93dd-955bd57b3e9a
