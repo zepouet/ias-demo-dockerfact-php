@@ -1,0 +1,31 @@
+name: Deploy UAT then Production
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REGISTRY_FROM: regdev13114.azurecr.io
+  REGISTRY_TO: regprod13114.azurecr.io
+  IMAGE: 'nico13114'
+  APP_NAME_DEV: 'webdev13114'
+  APP_NAME_PRD: 'webprod13114'
+
+jobs:
+  create-tag:
+    runs-on: 'ubuntu-latest'
+    environment: 'dev'
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Branch name
+        id: branch_name
+        run: |
+          echo ::set-output name=VERSION::${GITHUB_REF#refs/heads/release/}
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.0
+        with:
+          custom_tag: "0.1.1"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
