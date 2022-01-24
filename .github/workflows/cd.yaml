@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - 'release/**'
-            
+
 env:
   REGISTRY_FROM: regdev13114.azurecr.io
   REGISTRY_TO: regprod13114.azurecr.io
@@ -40,8 +40,10 @@ jobs:
       - name: 'Build the image'
         id: build
         run: |
-          echo docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }} .
-          docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }} .
+          echo docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:$TAG
+          docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:$TAG .
+        env:
+          TAG: ${{ steps.branch_name.outputs.VERSION }}-${{ github.run_id }}
       - name: 'azure registry login'
         uses: azure/docker-login@v1
         with:
