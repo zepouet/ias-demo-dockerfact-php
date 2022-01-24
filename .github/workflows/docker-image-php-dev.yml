@@ -11,7 +11,7 @@ env:
   REGISTRY_BASE: base13114.azurecr.io
   REGISTRY_APP: regdev13114.azurecr.io
   IMAGE: 'nico13114'
-  APP_NAME: 'webprod13114'
+  APP_NAME: 'webdev13114'
 
 jobs:
   #=====================================================================================================================
