@@ -11,6 +11,7 @@ env:
   REGISTRY_BASE: base13114.azurecr.io
   REGISTRY_APP: regdev13114.azurecr.io
   IMAGE: 'nico13114'
+  APP_NAME: 'webdev13114'
 
 jobs:
   #=====================================================================================================================
@@ -51,7 +52,7 @@ jobs:
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: uat-demo13114
+          app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:${{ github.sha }}
       - name: e2e
