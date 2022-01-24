@@ -121,5 +121,5 @@ jobs:
       - name: e2e
         run: "echo e2e"
       - name: perf
-        run: "echo perf"
+        run: "echo perf."
 
