@@ -29,8 +29,6 @@ jobs:
           login-server: ${{ env.REGISTRY_BASE }}
           username: ${{ secrets.ACR_SECRET_ID }}
           password: ${{ secrets.ACR_SECRET_PWD }}
-      - run: ls -la .
-      - run: pwd
       - name: 'Build the image'
         id: build
         run: |
@@ -54,7 +52,8 @@ jobs:
         with:
           app-name: ${{ env.APP_NAME }}
           publish-profile: ${{ secrets.azureWebAppPublishProfile }}
-          images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:${{ github.sha }}
+          #images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:${{ github.sha }}
+          images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:uat
       - name: e2e
         run: "echo e2e"
       - name: perf
