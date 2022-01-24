@@ -1,9 +1,10 @@
 name: Deploy UAT then Production
 
 on:
-  branches:
-    - 'release/**'
-    - 'releases/**'
+  push:
+    branches:
+      - 'release/**'
+      - 'releases/**'
 
 env:
   REGISTRY_FROM: regdev13114.azurecr.io
