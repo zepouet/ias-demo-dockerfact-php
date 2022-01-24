@@ -1,7 +1,7 @@
 name: Deploy production
 
 on:
-  [workflow_dispatch]
+  workflow_dispatch:
   branches:
     - 'releases/**'
 
