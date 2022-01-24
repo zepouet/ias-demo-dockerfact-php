@@ -54,7 +54,7 @@ jobs:
           #publish-profile: ${{ secrets.azureWebAppPublishProfile }}
           #images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:${{ github.sha }}
           #creds: ${{ secrets.AZURE_CREDENTIALS }}
-          images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:uat
+          images: ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:${{ github.sha }}
       - name: e2e
         run: "echo e2e"
       - name: perf

@@ -12,5 +12,4 @@ REGISTRY=regdev13114
 #  --scopes /subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RG_NAME}/providers/Microsoft.Web/sites/${APP_NAME} \
 #  --sdk-auth
 
-az role assignment create --assignee 88eac87d-8627-46e8-9796-ed7ef5f4cbc3
- --scope /subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RG_NAME}/providers/Microsoft.ContainerRegistry/registries/${REGISTRY} --role "AcrPull"
+az role assignment create --assignee 88eac87d-8627-46e8-9796-ed7ef5f4cbc3 --scope /subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RG_NAME}/providers/Microsoft.ContainerRegistry/registries/${REGISTRY} --role "AcrPull"
