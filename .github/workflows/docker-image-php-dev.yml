@@ -10,7 +10,7 @@ on:
 env:
   REGISTRY_BASE: base13114.azurecr.io
   REGISTRY_APP: regdev13114.azurecr.io
-  IMAGE: 'demo13114'
+  IMAGE: 'nico13114'
 
 jobs:
   #=====================================================================================================================
