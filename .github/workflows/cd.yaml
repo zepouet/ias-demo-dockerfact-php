@@ -86,5 +86,14 @@ jobs:
           echo "github.run_id = ": ${{ github.run_id }}
         env:
           VERSION: ${{ steps.branch_name.outputs.VERSION }}
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: 'azure registry login Dev'
+        uses: azure/docker-login@v1
+        environment: 'dev'
+        with:
+          login-server: ${{ env.REGISTRY_FROM }}
+          username: ${{ secrets.ACR_APP_SECRET_ID }}
+          password: ${{ secrets.ACR_APP_SECRET_PWD }}
       
 
