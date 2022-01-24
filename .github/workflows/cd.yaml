@@ -39,6 +39,7 @@ jobs:
       - name: 'Build the image'
         id: build
         run: |
+          echo docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }} .
           docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ env.VERSION }}-${{ github.run_id }} .
       - name: 'azure registry login'
         uses: azure/docker-login@v1
