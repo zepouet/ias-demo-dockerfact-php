@@ -9,7 +9,8 @@ env:
   REGISTRY_FROM: regdev13114.azurecr.io
   REGISTRY_TO: regprod13114.azurecr.io
   IMAGE: 'nico13114'
-  APP_NAME: 'webprod13114'
+  APP_NAME_DEV: 'webdev13114'
+  APP_NAME_PRD: 'webprod13114'
 
 jobs:
   publish-uat:
@@ -62,7 +63,7 @@ jobs:
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.APP_NAME }}
+          app-name: ${{ env.APP_NAME_DEV }}
           images: ${{env.REGISTRY_FROM}}/${{ env.IMAGE }}:${{ steps.branch_name.outputs.VERSION }}-${{ github.run_id }}
       - name: e2e
         run: "echo e2e"
@@ -115,7 +116,7 @@ jobs:
       - name: 'Deploy to Azure WebApp'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.APP_NAME }}
+          app-name: ${{ env.APP_NAME_PRD }}
           images: ${{env.REGISTRY_TO}}/${{ env.IMAGE }}:${{ steps.branch_name.outputs.VERSION }}
       - name: e2e
         run: "echo e2e"
