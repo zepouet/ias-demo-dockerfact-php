@@ -17,7 +17,8 @@ jobs:
       - name: Branch name
         id: branch_name
         run: |
-          echo ::set-output name=GITHUB_REFERENCE::${GITHUB_REF}
+          echo ${GITHUB_REF}
+          echo ${GITHUB_REF} | cut -d / -f 4)
           echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
           echo ::set-output name=SHORT_ID::${GITHUB_REF#refs/release/}
           echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
