@@ -2,6 +2,7 @@ name: Deploy UAT then production
 
 on:
   branches:
+    - 'release/**'
     - 'releases/**'
 
 env:
