@@ -90,10 +90,36 @@ jobs:
         uses: actions/checkout@v2
       - name: 'azure registry login Dev'
         uses: azure/docker-login@v1
-        environment: 'dev'
         with:
           login-server: ${{ env.REGISTRY_FROM }}
-          username: ${{ secrets.ACR_APP_SECRET_ID }}
-          password: ${{ secrets.ACR_APP_SECRET_PWD }}
-      
+          username: ${{ secrets.DEV_ACR_APP_SECRET_ID }}
+          password: ${{ secrets.DEV_ACR_APP_SECRET_PWD }}
+      - name: pull
+        run: docker pull ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:$TAG
+        env:
+          TAG: ${{ steps.branch_name.outputs.VERSION }}-${{ github.run_id }}
+      - name: 'azure registry login Prod'
+        uses: azure/docker-login@v1
+        environment: 'prod'
+        with:
+          login-server: ${{ env.REGISTRY_TO }}
+          username: ${{ secrets.PRD_ACR_APP_SECRET_ID }}
+          password: ${{ secrets.PRD_ACR_APP_SECRET_PWD }}
+      - name: push
+        run: |
+          docker tag ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:${{ steps.branch_name.outputs.VERSION }}-${{ github.run_id }} ${{ env.REGISTRY_TO }}/${{ env.IMAGE }}:${{ steps.branch_name.outputs.VERSION }}
+          docker push ${{ env.REGISTRY_TO }}/${{ env.IMAGE }}:${{ steps.branch_name.outputs.VERSION }}
+      - name: 'Login to Azure'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Deploy to Azure WebApp'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.APP_NAME }}
+          images: ${{env.REGISTRY_TO}}/${{ env.IMAGE }}:${{ steps.branch_name.outputs.VERSION }}
+      - name: e2e
+        run: "echo e2e"
+      - name: perf
+        run: "echo perf"
 
