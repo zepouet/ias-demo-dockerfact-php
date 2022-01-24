@@ -22,5 +22,5 @@ jobs:
         run: |
           echo $VERSION
         env:
-          $VERSION: ${{ steps.branch_name.outputs.$VERSION }}
+          VERSION: ${{ steps.branch_name.outputs.$VERSION }}
 
