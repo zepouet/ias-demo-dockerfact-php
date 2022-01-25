@@ -2,8 +2,8 @@ name: Deploy in DEV
 
 on:
   #The restriction to directly push commits to master solves the problem.
-  #push:
-  #  branches: [ main ]
+  push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
