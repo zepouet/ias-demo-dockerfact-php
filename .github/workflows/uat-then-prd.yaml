@@ -6,6 +6,7 @@ on:
       - 'release/**'
 
 env:
+  REGISTRY_BASE: base13114.azurecr.io
   REGISTRY_FROM: regdev13114.azurecr.io
   REGISTRY_TO: regprod13114.azurecr.io
   IMAGE: 'nico13114'
@@ -34,7 +35,7 @@ jobs:
       - name: 'azure registry login'
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ env.REGISTRY_FROM }}
+          login-server: ${{ env.REGISTRY_BASE }}
           username: ${{ secrets.ACR_SECRET_ID }}
           password: ${{ secrets.ACR_SECRET_PWD }}
       - name: 'Build the image'
