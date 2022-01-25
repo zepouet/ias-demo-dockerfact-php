@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: 'azure registry login'
+      - name: 'azure docker registry login'
         uses: azure/docker-login@v1
         with:
           login-server: ${{ env.REGISTRY_BASE }}
@@ -58,4 +58,4 @@ jobs:
       - name: e2e
         run: "echo e2e"
       - name: perf
-        run: "echo perf"
+        run: "echo perf."
