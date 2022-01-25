@@ -1,4 +1,4 @@
-Nicolas Nausicaa
+Nicolas Nausicaa 1.6
 
 <?php
 
