@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'release/**'
+      - main
 
 env:
   REGISTRY_BASE: base13114.azurecr.io
