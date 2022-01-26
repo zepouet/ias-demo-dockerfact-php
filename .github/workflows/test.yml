@@ -24,6 +24,8 @@ jobs:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
+        with:
+          images: nico13114:uat
       - name: 'display meta'
         run: |
           echo ${{ steps.meta.outputs.tags }}
