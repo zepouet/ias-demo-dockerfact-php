@@ -33,9 +33,9 @@ jobs:
             type=sha,format=long
       - name: 'display meta'
         run: |
-          echo $BUILDTIME
-          echo $VERSION
-          echo $REVISION
+          echo BUILDTIME: $BUILDTIME
+          echo VERSION: $VERSION
+          echo REVISION: $REVISION
         env:
           BUILDTIME: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
           VERSION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
