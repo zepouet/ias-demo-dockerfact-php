@@ -33,16 +33,30 @@ jobs:
             type=sha,format=long
       - name: 'display meta'
         run: |
-          echo ${{ steps.meta.outputs.tags }}
-          echo ${{ steps.meta.outputs.labels }}
-      - name: Branch name
-        id: branch_name
-        run: |
-          echo ::set-output name=VERSION::${GITHUB_REF#refs/heads/release/}
-      - name: Build base image
-        run: |
+          echo $BUILDTIME
           echo $VERSION
-          echo "github.run_id = ": ${{ github.run_id }}
+          echo $REVISION
         env:
-          VERSION: ${{ steps.branch_name.outputs.VERSION }}
+          BUILDTIME: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+          VERSION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+          REVISION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
+      - name: 'azure registry login'
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY_BASE }}
+          username: ${{ secrets.ACR_SECRET_ID }}
+          password: ${{ secrets.ACR_SECRET_PWD }}
+      - name: 'Build the image'
+        id: build
+        run: |
+          echo $BUILDTIME
+          echo $VERSION
+          echo $REVISION
+          echo docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:$TAG
+          docker build -t ${{ env.REGISTRY_FROM }}/${{ env.IMAGE }}:$TAG .
+        env:
+          TAG: ${{ steps.branch_name.outputs.VERSION }}-${{ github.run_id }}
+          BUILDTIME: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
+          VERSION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+          REVISION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
 
