@@ -1,0 +1,42 @@
+name: Deploy UAT then Production
+
+on:
+  push:
+    branches:
+      - 'release/**'
+
+env:
+  REGISTRY_BASE: base13114.azurecr.io
+  REGISTRY_FROM: regdev13114.azurecr.io
+  REGISTRY_TO: regprod13114.azurecr.io
+  IMAGE: 'nico13114'
+  APP_NAME_DEV: 'webdev13114'
+  APP_NAME_PRD: 'webprod13114'
+
+jobs:
+  publish-uat:
+    runs-on: 'ubuntu-latest'
+    environment: 'dev'
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: nico13114
+      - name: 'display meta'
+        run: |
+          echo ${{ steps.meta.outputs.tags }}
+          echo ${{ steps.meta.outputs.labels }}
+      - name: Branch name
+        id: branch_name
+        run: |
+          echo ::set-output name=VERSION::${GITHUB_REF#refs/heads/release/}
+      - name: Build base image
+        run: |
+          echo $VERSION
+          echo "github.run_id = ": ${{ github.run_id }}
+        env:
+          VERSION: ${{ steps.branch_name.outputs.VERSION }}
+      
