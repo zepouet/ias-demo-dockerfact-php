@@ -36,10 +36,12 @@ jobs:
           echo BUILDTIME: $BUILDTIME
           echo VERSION: $VERSION
           echo REVISION: $REVISION
+          echo $labels
         env:
           BUILDTIME: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.created'] }}
           VERSION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
           REVISION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.revision'] }}
+          labels: ${{ steps.meta.outputs.labels }}
       - name: 'azure registry login'
         uses: azure/docker-login@v1
         with:
