@@ -27,10 +27,10 @@ jobs:
         with:
           images: regdev13114.azurecr.io/nico13114
           tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            # minimal (short sha)
+            type=sha
+            # full length sha
+            type=sha,format=long
       - name: 'display meta'
         run: |
           echo ${{ steps.meta.outputs.tags }}
