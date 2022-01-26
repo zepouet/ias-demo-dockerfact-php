@@ -20,6 +20,15 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: nico13114
+      - name: 'display meta'
+        run: |
+          echo ${{ steps.meta.outputs.tags }}
+          echo ${{ steps.meta.outputs.labels }}
       - name: Branch name
         id: branch_name
         run: |
