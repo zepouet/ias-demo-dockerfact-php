@@ -63,5 +63,5 @@ jobs:
       - name: 'lock the image'
         run: |
           az acr repository update \
-            --name myregistry --image ${{env.REGISTRY_APP}}/${{ env.IMAGE }}:uat \
+            --name ${{ env.REGISTRY_APP }} --image ${{ env.IMAGE }}:uat \
             --write-enabled false
