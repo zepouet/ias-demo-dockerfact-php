@@ -1,4 +1,4 @@
-Nicolas Nausicaa 1.6
+Main branch
 
 <?php
 
