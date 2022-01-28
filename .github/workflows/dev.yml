@@ -60,8 +60,9 @@ jobs:
         run: "echo e2e"
       - name: perf
         run: "echo perf."
-      - name: 'lock the image'
-        run: |
-          az acr repository update \
-            --name ${{ env.REGISTRY_APP }} --image ${{ env.IMAGE }}:uat \
-            --write-enabled false
+      #- name: 'lock the image'
+      #  run: |
+      #    az acr repository update \
+      #      --name ${{ env.REGISTRY_APP }} --image ${{ env.IMAGE }}:uat \
+      #      --write-enabled true
+
